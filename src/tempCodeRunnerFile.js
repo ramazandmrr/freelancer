@@ -1,0 +1,1 @@
+t('/mineblock', async (req, res) 

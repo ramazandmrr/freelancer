@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: grid;
+    place-items: center;
+    background-image: url('bulut.jpg');
+    background-size: cover; /* Resmi sayfa boyutuna uygun şekilde ölçekle */
+    
+}
+
+h1{
+    /* color: rgb(223, 155, 52); */
+    margin-top: 20vh;
+    margin-bottom: 30px;
+    color: #0994cb;
+
+}
+input{
+    font-size: 1rem;
+    width: 300px;
+    padding: 6px 2px; 
+    margin: 10px 0 10px 0;
+}
+.sub{
+    background-color:#ffffff;
+    cursor: pointer;
+}
+
+form{
+    /* margin-top: 20vh; */
+    text-align: center;
+    border: 5px solid #8CFFF0;
+    padding: 20px;
+    background-color:#f4fbff;
+    border: 2px solid #b8f4fb;
+    
+}
+
+
+#foto{
+    width: 90px;
+}

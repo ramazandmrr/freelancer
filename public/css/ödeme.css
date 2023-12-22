@@ -1,0 +1,148 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    background-image: url('bulut.jpg');
+    background-size: cover; /* Resmi sayfa boyutuna uygun şekilde ölçekle */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#post-container {
+    display: flex;
+    flex-direction: column; /* Kartları dikey olarak düzenle */
+}
+
+.post {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-sizing: border-box;
+    width: 95%; /* Kartların genişliğini 100% olarak ayarla */
+}
+
+.post-form-container {
+    margin-top: 20px;
+}
+
+#post-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#post-title,
+#price-title {
+    margin-bottom: 10px;
+}
+
+#post-content {
+    margin-bottom: 10px;
+    height: 410px;
+}
+
+button {
+    background-color: #0d6efd;
+    color: white;
+    padding: 5px;
+    width: 30%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border-radius: 500px;
+    margin-left: 75px;
+}
+
+button:hover {
+    background-color: #0d6efd;    
+}
+
+.footer {
+    position: fixed;
+    bottom: 10%;
+    left: 75%;
+    width: 24%;
+    height: 80%;
+    background-color: rgb(242 242 242);
+    color: white;
+    text-align: center;
+    padding: 35px;
+}
+
+#addbtn {
+    position: fixed;
+    bottom: 5%;
+    left: 90%;
+    width: 3%;
+    height: 6%;
+    border-radius: 100%;
+}
+
+#postbtn {
+    margin-left: 100px;
+}
+#bosbtn {
+    width:10%;
+    margin-bottom: 10px;
+}
+.post-actions {
+display: flex;
+flex-direction: column; /* Yorum ve teklif giriş kısmını sütun olarak düzenle */
+align-items: flex-start; /* Yorumları yukarıda sabitle */
+}
+
+.comment-input {
+width: 80%; /* Yorum ve teklif giriş alanlarını genişlet */
+margin-bottom: 10px;
+}
+
+
+
+.add-comment {
+    position: fixed;
+    width: 15%; /* Yorum ekle butonunu genişlet */
+     /* Yorum ekle butonunu sağa hizala */
+     left: 80%;
+}
+
+.accept-offer,
+.remove-post {
+width: 100%;
+
+}
+
+.remove-post{
+width: 10.75%;
+margin-left: 84%;
+}
+.blog-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 0px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 40px; /* Sol tarafında 50px boşluk bırak */
+    margin-right: 40px;
+    margin-top:20px; /* Sağ tarafında 50px boşluk bırak */
+    list-style-type: none;
+     height: 230px;
+}
+.remove-btn{
+    position: absolute;
+    width: 50px;
+    right: 70px;
+     
+
+}
+
+
+
+#foto{
+    width: 90px;
+}

@@ -1,0 +1,222 @@
+
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/css/home.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <!-- Navbar kodları buraya ekleniyor -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CloudJob</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                       <img src="/indir.png" id = "foto"></img> 
+                        
+                    </li>
+                    <li>
+                        <a class="nav-link active" name ="jobtest" aria-current="page" href="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="job" id ="jobtest">JobCheck</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="signup">Üye Ol / Giriş</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="odeme" tabindex="-1" aria-disabled="true">Ödeme</a>
+                        
+                    </li>
+                </ul>
+               
+            </div>
+            
+            <nav class="navbar navbar-dark bg-primary">
+            <span class="navbar-text text-white font-weight-bold">
+             
+ 
+ <span class="navbar-text text-white font-weight-bold" name ="kim" id="welcomeMessage"  ></span>
+
+
+            </span>
+            </nav>
+            
+        </div> 
+    </nav>
+
+    <div id="post-container" >
+        <ul>
+    {{#each blogs}}
+        <li  class="blog-card" id = "welcomeMessage" >            
+            <h3>{{this.ad}}</h3>
+            <p>Fiyat: {{this.fiyat}}</p>
+            <p>Açıklama: {{this.aciklama}}</p>
+            <p>ilan sahibi : {{this.kim}}</p>
+            <button class="remove-btn" onclick="removeBlog('{{this.ad}}')">Kaldır</button>
+            <br>
+
+            <form action="/job" method="post" >           
+             <input type="text" name = "odemead"  placeholder="Kullanıcı adınız">
+             <input type="text" name = "odemeadres"  placeholder="Blockchain Adresi">
+             <input type="text" name="odemedosya" placeholder="dosya uzantısı"> 
+             <input type="file" name="file">   
+             <button  type="submit" class = "dosyagonder">Dosya Gönder</button>                    
+            </form> 
+            
+            
+        </li>
+    {{/each}}
+</ul>
+
+    </div>
+
+    <button class="btn btn-primary" id="addbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">+</button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <!-- İlan Ekle formu buraya ekleniyor -->
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">İlan Ekle</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" >
+            <div class="footer">
+                <!-- İlan Ekle formu içeriği buraya ekleniyor -->
+                <form  action="/home" method="post"  >
+                    <input type="text"  name = "ad" id="post-title" placeholder="Başlık">
+                    <input type="text" name  = "fiyat" id="price-title" placeholder="Fiyat Teklifi">
+                    <input type="text" name  = "kim" id="price-title" placeholder="Şirket İsmi">
+                    <textarea id="post-content" name = "aciklama" placeholder="İçerik"></textarea>
+                    <button type="submit" id="postbtn" >+</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- jQuery ve diğer JS dosyaları buraya ekleniyor -->
+    <script>
+       $(document).ready(function () {
+    const postContainer = $("#post-container");    
+    const postForm = $(); 
+
+       
+
+    postForm.submit(function (event) {
+        event.preventDefault();
+
+        const postTitle = $("#post-title").val();
+        const postContent = $("#post-content").val();
+        const postPrice = $("#price-title").val();
+
+        if (postTitle && postContent && postPrice) {
+            const newPost = $(`<div class="post">
+                <h2><h3>${postTitle}</h3>Fiyat Teklifi: ${postPrice}</h2>
+                <p>${postContent}</p>
+                <div class="post-actions">
+                    <input type="text" class="comment-input" placeholder="Yorum veya Teklif Girin">
+                    <button class="add-comment" id="bosbtn">Yorum Ekle</button>
+                    <button class="remove-post">Gönderiyi Kaldır</button>
+                </div>
+            </div>`);
+
+            postContainer.append(newPost);
+
+            $("#post-title").val("");
+            $("#post-content").val("");
+            $("#price-title").val("");
+
+            newPost.on("click", ".add-comment", function () {
+                const commentInput = $(this).siblings(".comment-input");
+                const commentText = commentInput.val();
+
+                if (commentText) {
+                    const comment = $(`<p class="comment">${commentText}</p>`);
+                    const acceptOfferButton = $(`<button class="accept-offer" id="bosbtn">Teklifi Kabul Et</button>`);
+                    
+                    $(this).before(comment, acceptOfferButton);
+                    commentInput.val("");
+                }
+            });
+
+            newPost.on("click", ".accept-offer", function () {
+                alert("Teklif Kabul Edildi!");
+            });
+        }
+    });
+
+    postContainer.on("click", ".remove-post", function () {
+        $(this).closest(".post").remove();
+    });
+});
+    
+    async function removeBlog(blogAdi) {
+        console.log("buarada");
+        try {location.reload();
+            const response = await fetch(`/home?ad=${blogAdi}`, {
+                
+                method: 'DELETE',
+                
+            });
+
+            if (response.ok) {
+                // Silme işlemi başarılıysa gerekirse sayfayı yenileyebilir veya başka bir işlem gerçekleştirebilirsiniz.
+                console.log('Silme işlemi başarılı.');
+            } else {
+                console.error('Silme işlemi başarısız.');
+            }
+        } catch (error) {
+            console.error('Hata:', error);
+        }
+    }
+
+   
+
+    
+    document.addEventListener('DOMContentLoaded', function () {
+    let userName = localStorage.getItem('userName'); // localStorage'dan kullanıcı adını al
+
+    if (!userName) {
+        // URL'den kullanıcı adını çek
+        userName = new URLSearchParams(window.location.search).get('userName');
+        
+        // localStorage'a kullanıcı adını kaydet
+        localStorage.setItem('userName', userName);
+    }
+
+    const welcomeMessageElement = document.getElementById('welcomeMessage');
+
+    if (userName) {
+        welcomeMessageElement.textContent = `Welcome, ${userName}!`;
+    } else {
+        welcomeMessageElement.textContent = 'Welcome, Guest!';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const welcomeMessageElement = document.getElementById('kimsin');
+
+    // welcomeMessageElement içindeki metni al
+    const welcomeMessageText = welcomeMessageElement.textContent;
+
+   
+});
+
+        
+ 
+    </script>
+</body>
+</html>
+
+ 

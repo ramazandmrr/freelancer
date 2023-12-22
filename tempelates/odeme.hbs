@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/css/home.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+          
+        }
+        input, button {
+            margin: 1px;
+            padding: 8px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        #adres{
+            width: 150px;
+            height: 40px;
+            
+        }
+        
+    </style>
+</head>
+<body>
+      
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <!-- Navbar kodları buraya ekleniyor -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CloudJob</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                     <li class="nav-item">
+                       <img src="/indir.png" id = "foto"></img> 
+                        
+                    </li>
+                    <li>
+                        <a class="nav-link active" aria-current="page" href="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="job">JobCheck</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="signup">Üye Ol / Giriş</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="odeme" tabindex="-1" aria-disabled="true">Ödeme</a>
+                        
+                    </li>
+                </ul>
+               
+            </div>
+            
+    <nav class="navbar navbar-dark bg-primary">
+    <span class="navbar-text text-white font-weight-bold">
+</nav>
+ </nav>
+       
+{{#each odemes}}
+                  
+             <h1>Paranız: {{this.para}} <span id="balance"></span>
+{{/each}}
+
+ 
+
+    </span></h2>
+
+    <h3>Ödeme İşlemleri</h3>
+
+    
+
+     <form action="/kazma" method="post">
+    <input type="text" name = "mineislemi"   placeholder="adresin">
+         <button onclick="mineBlock()" id ="adres" > Best Coin Kazma </button>
+    </form>
+    <br>
+    <p>----------------------------------------------------------------------------------------------------------------------------------</p>
+    <br>
+
+    <form action="/mineblock" method="post"> 
+        <input type="text" name = "mineislemi"   placeholder="adresin">
+        <input type="text" name = "gidecekadres"  placeholder="Adrese ">
+        <input type="text" name = "gidecekpara"  placeholder="Miktar"> 
+        <h3></h3>
+        <button type = "submit " >Best Coin Gönder</button>
+    </form>
+    
+    
+  
+ 
+ 
+    
+    
+
+    <script>
+        function makeTransaction() {
+            const toAddress = document.getElementById('toAddress').value;
+            const amount = document.getElementById('amount').value;
+            
+
+            fetch('/transactions/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ toAddress, amount }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                updateBalance();
+            });
+            
+        }
+
+        function mineBlock() {
+            fetch('/mine')
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                updateBalance();
+            });
+        }
+
+        function getChain() {
+            fetch('/chain')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                window.location.href = '/chain';
+            });
+        }
+
+        function checkValidity() {
+            fetch('/validity')
+            .then(response => response.json())
+            .then(data => {
+                alert('Is Chain Valid: ' + data.isChainValid);
+            });
+        }
+
+        function updateBalance() {
+            fetch('/balance')
+            .then(response => response.json())
+            .then(data => {
+              //  document.getElementById('balance').innerText = data.balance;
+            });
+        }
+
+        // Başlangıçta bakiyeyi güncelle
+        updateBalance();
+
+        // Her saniye bakiyeyi güncelle
+        setInterval(updateBalance, 1000);
+        
+       
+    </script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
